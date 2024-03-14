@@ -39,9 +39,11 @@ def create_pdf_with_image_and_text(image_path, text, pdf_filename):
     with Image.open(image_path) as img:
         img_width, img_height = img.size
 
-    # Calculate width and height in mm (FPDF uses mm)
+    # default mm per inch (FPDF uses mm)
     mm_per_inch = 25.4
-    dpi = 96  # Change according to your image's dpi
+    # Change according to your image's dpi
+    dpi = 96
+
     pdf_img_width = img_width / dpi * mm_per_inch
     pdf_img_height = img_height / dpi * mm_per_inch
 
@@ -80,7 +82,7 @@ def create_pdf_with_image_and_text(image_path, text, pdf_filename):
 
 def main():
     NASA_API_KEY = api_key  # Replace with your NASA API key
-    image_url, description, date = fetch_nasa_image_and_description(NASA_API_KEY)
+    image_url, description = fetch_nasa_image_and_description(NASA_API_KEY)
 
     image_path = save_image_from_url(image_url, "nasa_image.jpg")
 
