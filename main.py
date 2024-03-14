@@ -78,7 +78,7 @@ def get_apiKey():
     if "GITHUB_ACTIONS" in os.environ:
         # Running in GitHub Actions, fetch secrets from GitHub secrets
         # Replace 'SECRET_NAME' with the actual name of your secret
-        secret_value = os.environ.get("nasa_api_key")
+        secret_value = os.environ.get("NASA_API_KEY")
         return secret_value
     else:
         # Running locally, fetch secrets from .env file
@@ -87,7 +87,7 @@ def get_apiKey():
         # Load variables from .env file into environment
         load_dotenv(dotenv_path)
         # Access variables
-        api_key = os.getenv("nasa_api_key")
+        api_key = os.getenv("NASA_API_KEY")
         print(api_key)
 
 
