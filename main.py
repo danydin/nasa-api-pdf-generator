@@ -5,14 +5,6 @@ from io import BytesIO
 from fpdf import FPDF
 from dotenv import load_dotenv
 
-# for custom path instead of just the default .env
-dotenv_path = "./secrets.env"
-# Load variables from .env file into environment
-load_dotenv(dotenv_path)
-# Access variables
-api_key = os.getenv("apiKey")
-print(api_key)
-
 
 def fetch_nasa_image_and_description(api_key):
     url = f"https://api.nasa.gov/planetary/apod?api_key={api_key}"
@@ -82,8 +74,27 @@ def create_pdf_with_image_and_text(image_path, text, pdf_filename):
     print(f"Image and pdf files created!! {pdf_filename}")
 
 
+def get_apiKey():
+    if "GITHUB_ACTIONS" in os.environ:
+        # Running in GitHub Actions, fetch secrets from GitHub secrets
+        # Replace 'SECRET_NAME' with the actual name of your secret
+        secret_value = os.environ.get("nasa_api_key")
+        return secret_value
+    else:
+        # Running locally, fetch secrets from .env file
+        # for custom path instead of just the default .env
+        dotenv_path = "./secrets.env"
+        # Load variables from .env file into environment
+        load_dotenv(dotenv_path)
+        # Access variables
+        api_key = os.getenv("nasa_api_key")
+        print(api_key)
+
+
 def main():
-    NASA_API_KEY = api_key  # Replace with your NASA API key
+    api_key = get_apiKey()
+    # Replace with your NASA API key
+    NASA_API_KEY = api_key
     image_url, description = fetch_nasa_image_and_description(NASA_API_KEY)
 
     image_path = save_image_from_url(image_url, "nasa_image.jpg")
