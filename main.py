@@ -1,16 +1,18 @@
-import requests, os
+import requests
+import os
 from PIL import Image
 from io import BytesIO
 from fpdf import FPDF
 from dotenv import load_dotenv
 
 # for custom path instead of just the default .env
-dotenv_path = './secrets.env'
+dotenv_path = "./secrets.env"
 # Load variables from .env file into environment
 load_dotenv(dotenv_path)
 # Access variables
 api_key = os.getenv("apiKey")
 print(api_key)
+
 
 def fetch_nasa_image_and_description(api_key):
     url = f"https://api.nasa.gov/planetary/apod?api_key={api_key}"
@@ -95,4 +97,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
