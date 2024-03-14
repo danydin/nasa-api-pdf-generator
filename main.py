@@ -66,15 +66,15 @@ def create_pdf_with_image_and_text(image_path, text, pdf_filename):
     pdf.set_font("Arial", size=12)
     pdf.multi_cell(0, 10, text)
 
-    ## === Text will sometimes be on top of the image ======
-    # # Add image
+    # === Text will sometimes be on top of the image ======
+    # Add image
     # pdf.image(image_path, x=10, y=30, w=pdf.w - 20)  # Adjust dimensions as needed
 
-    # # Add text
+    # Add text
     # pdf.set_font("Arial", size=12)
     # pdf.ln(140)  # Move below the image; adjust as needed
     # pdf.multi_cell(0, 10, text)
-    ## ===  END === Text will sometimes be on top of the image ======
+    # ===  END === Text will sometimes be on top of the image ======
 
     # Save PDF
     pdf.output(pdf_filename)
