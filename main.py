@@ -1,3 +1,6 @@
+# to do:
+# 1. need to add date return from the api fetch to the pdf
+
 import requests
 import os
 from PIL import Image
@@ -78,24 +81,23 @@ def get_apiKey():
     if "GITHUB_ACTIONS" in os.environ:
         # Running in GitHub Actions, fetch secrets from GitHub secrets
         # Replace 'SECRET_NAME' with the actual name of your secret
-        secret_value = os.environ.get("NASA_API_KEY")
-        return secret_value
+        api_key = os.environ.get("NASA_API_KEY")
+        return api_key
     else:
         # Running locally, fetch secrets from .env file
         # for custom path instead of just the default .env
-        dotenv_path = "./secrets.env"
+        dotenv_path = "secrets.env"
         # Load variables from .env file into environment
         load_dotenv(dotenv_path)
         # Access variables
         api_key = os.getenv("NASA_API_KEY")
-        print(api_key)
+        return api_key
 
 
 def main():
     api_key = get_apiKey()
     # Replace with your NASA API key
-    NASA_API_KEY = api_key
-    image_url, description = fetch_nasa_image_and_description(NASA_API_KEY)
+    image_url, description, date = fetch_nasa_image_and_description(api_key)
 
     image_path = save_image_from_url(image_url, "nasa_image.jpg")
 
